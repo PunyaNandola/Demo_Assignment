@@ -39,4 +39,15 @@ test.describe('Login Test', () => {
     await expect(page.locator(SELECTORS.DASHBOARD)).not.toBeVisible();
   });
 
+    test('should login with all valid credentials', async ({ page }) => {
+      const loginPage = new LoginPage(page);
+      
+      for (const credential of validLoginCredentials) {
+        await loginPage.goto();
+        await loginPage.login(credential.username, credential.password);
+        await expect(page.locator(SELECTORS.DASHBOARD)).toBeVisible();
+        await page.locator(SELECTORS.LOGOUT_BUTTON).click();
+      }
+    });
+
 }); 

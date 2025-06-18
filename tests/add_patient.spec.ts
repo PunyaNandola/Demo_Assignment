@@ -79,17 +79,6 @@ test.describe('Add Patient Test', () => {
     await expect(addPatientPage.phoneNumberInput).toHaveValue(emptyPatientData.phoneNumber);
   });
 
-  // New tests using all test data
-  test('should login with all valid credentials', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    
-    for (const credential of validLoginCredentials) {
-      await loginPage.goto();
-      await loginPage.login(credential.username, credential.password);
-      await expect(page.locator(SELECTORS.DASHBOARD)).toBeVisible();
-      await page.locator(SELECTORS.LOGOUT_BUTTON).click();
-    }
-  });
 
   test('should add all sample patients', async ({ page }) => {
     const loginPage = new LoginPage(page);
@@ -105,14 +94,5 @@ test.describe('Add Patient Test', () => {
     }
   });
 
-  test('should test with all invalid credentials', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    
-    for (const credential of invalidLoginCredentials) {
-      await loginPage.goto();
-      await loginPage.login(credential.username, credential.password);
-      await expect(page).toHaveURL(TEST_URLS.LOGIN_URL);
-      await expect(page.locator(SELECTORS.DASHBOARD)).not.toBeVisible();
-    }
-  });
+
 }); 
